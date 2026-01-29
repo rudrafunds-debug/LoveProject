@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Love Page</title>
+  <style>
+    body{
+      margin:0;
+      background:#ffd3e1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      font-family: Arial, sans-serif;
+    }
+    .card{
+      width:min(92vw, 420px);
+      background:#fff;
+      padding:22px 18px 26px;
+      border-radius:22px;
+      text-align:center;
+      box-shadow:0 14px 28px rgba(0,0,0,.18);
+    }
+    h1{
+      margin: 0 0 14px;
+      font-size:30px;
+      font-weight:800;
+      color:#111;
+    }
+
+    /* ✅ Huge center GIF */
+    .gif{
+      width:100%;
+      max-width:320px;
+      height:auto;
+      border-radius:18px;
+      display:block;
+      margin: 10px auto 18px;
+      background:#f2f2f2;
+    }
+
+    .playground{
+      position:relative;
+      height:120px;
+      margin-top: 6px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:18px;
+      font-weight:700;
+      border:none;
+      border-radius:14px;
+      cursor:pointer;
+      color:#fff;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      user-select:none;
+      box-shadow:0 10px 18px rgba(0,0,0,.16);
+    }
+
+    #yesBtn{
+      background:#ff2f8f;
+      position:absolute;
+      left:35px;
+      top:35px;
+    }
+
+    #noBtn{
+      background:#6a1b9a;
+      position:absolute;
+      right:35px;
+      top:35px;
+    }
+
+    /* ✅ Bottom text after YES */
+    .result{
+      display:none;
+      margin-top:20px;
+      font-size:34px;
+      font-weight:900;
+      color:#222;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1 id="title">Do you love me?</h1>
+
+    <!-- ✅ IMPORTANT: hug.gif must be in same folder / same GitHub repo -->
+    <img class="gif" src="hug.gif" alt="Hugging Bear GIF" />
+
+    <div class="playground" id="playground">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+
+    <div class="result" id="result">Mrs Chaudhary</div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const playground = document.getElementById("playground");
+    const result = document.getElementById("result");
+    const title = document.getElementById("title");
+
+    function moveNo(){
+      const area = playground.getBoundingClientRect();
+      const bw = noBtn.offsetWidth;
+      const bh = noBtn.offsetHeight;
+      const pad = 10;
+
+      const maxX = area.width - bw - pad;
+      const maxY = area.height - bh - pad;
+
+      const x = Math.random() * (maxX - pad) + pad;
+      const y = Math.random() * (maxY - pad) + pad;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+    }
+
+    noBtn.addEventListener("pointerenter", moveNo);
+    noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveNo(); }, { passive:false });
+    noBtn.addEventListener("click", moveNo);
+
+    yesBtn.addEventListener("click", () => {
+      title.textContent = "Awwww 🥰";
+      playground.style.display = "none";
+      result.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
